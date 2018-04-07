@@ -39,20 +39,40 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
           padding: const EdgeInsets.symmetric(vertical: 20.0)
         ),
-        new Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            new ProfileButton(
-              icon: Icons.settings,
-              title: 'Configurations',
-              onPressed: () => print('Configurations')
-            ),
-            new ProfileButton(
-              icon: Icons.create,
-              title: 'Edit Info',
-              onPressed: () => print('Edit Info')
-            ),
-          ],
+        new Padding(
+          padding: const EdgeInsets.symmetric(vertical: 20.0),
+          child: new Table(
+            children: <TableRow>[
+              new TableRow(
+                children: <Widget>[
+                  new Container(
+                    decoration: new BoxDecoration(
+                      border: new BorderDirectional(
+                        end: new BorderSide(
+                          color: Colors.black12,
+                          width: 1.0,
+                        )
+                      )
+                    ),
+                    child: new ProfileButton(
+                      icon: Icons.settings,
+                      text: 'Configurations',
+                      activeColor: Colors.black26,
+                      iconActiveColor: Colors.black38,
+                      onPressed: () => print('Configurations')
+                    ),
+                  ),
+                  new ProfileButton(
+                    icon: Icons.create,
+                    text: 'Edit Info',
+                    activeColor: Colors.redAccent,
+                    iconActiveColor: Colors.white,
+                    onPressed: () => print('Edit Info')
+                  ),
+                ]
+              )
+            ],
+          )
         )
       ]
     );
