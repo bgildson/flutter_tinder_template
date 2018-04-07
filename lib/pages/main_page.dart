@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../ui/page_indicator.dart';
 import './profile_page.dart';
 import './search_page.dart';
+import './chat_page.dart';
 
 final INDICATORS = [
   { 'icon': Icons.person },
@@ -53,7 +54,7 @@ class _MainPageState extends State<MainPage> {
                 children: <Widget>[
                   new ProfilePage(),
                   new SearchPage(),
-                  new Text('chat page'),
+                  new ChatPage(),
                 ],
               ),
             )
