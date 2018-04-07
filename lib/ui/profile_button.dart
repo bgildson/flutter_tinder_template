@@ -25,30 +25,27 @@ class ProfileButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new Padding(
-      padding: const EdgeInsets.all(20.0),
-      child: new Column(
-        children: <Widget>[
-          new Padding(
-            padding: const EdgeInsets.only(bottom: 10.0),
-            child: RoundedIconButton(
-              icon: icon,
-              color: color,
-              iconColor: iconColor,
-              activeColor: activeColor,
-              iconActiveColor: iconActiveColor,
-              onPressed: this.onPressed,
-            ),
+    return new Column(
+      children: <Widget>[
+        new Padding(
+          padding: const EdgeInsets.only(bottom: 10.0),
+          child: RoundedIconButton(
+            icon: icon,
+            color: color,
+            iconColor: iconColor,
+            activeColor: activeColor,
+            iconActiveColor: iconActiveColor,
+            onPressed: this.onPressed,
           ),
-          new Text(
-            text.toUpperCase(),
-            style: new TextStyle(
-              color: textColor,
-              fontWeight: FontWeight.bold
-            )
-          ),
-        ],
-      ),
+        ),
+        new Text(
+          text.toUpperCase(),
+          style: new TextStyle(
+            color: textColor,
+            fontWeight: FontWeight.bold
+          )
+        ),
+      ],
     );
   }
 }
