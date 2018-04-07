@@ -7,9 +7,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return new MaterialApp(
       title: 'Tinder Template',
-      home: new Scaffold(
-        body: new MainPage()
-      )
+      home: new MainPage()
     );
   }
 }
