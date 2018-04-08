@@ -7,7 +7,6 @@ final double kIconMaxSize = 40.0;
 final double kIconHeight = 60.0;
 final double kIconWidth = 50.0;
 
-
 class PageIndicator extends StatefulWidget {
   PageIndicator({
     this.indicators,
@@ -104,7 +103,7 @@ class _PageIndicatorState extends State<PageIndicator> {
     if (widget.controller.page.ceil() != pageIndex)
       widget.controller.animateToPage(
         pageIndex,
-        curve: new Cubic(0.25, 0.5, 0.75, 1.0),
+        curve: Curves.linear,
         duration: new Duration(milliseconds: 300)
       );
   }
