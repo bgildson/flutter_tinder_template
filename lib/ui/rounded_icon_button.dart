@@ -5,7 +5,7 @@ class RoundedIconButton extends StatefulWidget {
   RoundedIconButton({
     Key key,
     @required this.icon,
-    bool active: true,
+    bool enabled: true,
     this.padding: 10.0,
     this.iconSize: 25.0,
     this.activeResizeFactor: 1.0,
@@ -13,18 +13,18 @@ class RoundedIconButton extends StatefulWidget {
     this.iconColor: Colors.black26,
     Color activeColor,
     Color iconActiveColor,
-    Color inactiveColor,
-    Color iconInactiveColor,
+    Color disabledColor,
+    Color iconDisabledColor,
     this.onPressed,
-  }) : this.active = active == true && onPressed != null,
+  }) : this.enabled = enabled == true && onPressed != null,
        this.activeColor = activeColor ?? color,
        this.iconActiveColor = iconActiveColor ?? iconColor,
-       this.inactiveColor = inactiveColor ?? color,
-       this.iconInactiveColor = iconInactiveColor ?? iconColor,
+       this.disabledColor = disabledColor ?? color,
+       this.iconDisabledColor = iconDisabledColor ?? iconColor,
        super(key: key);
 
   final IconData icon;
-  final bool active;
+  final bool enabled;
   final double padding;
   final double iconSize;
   final double activeResizeFactor;
@@ -32,8 +32,8 @@ class RoundedIconButton extends StatefulWidget {
   final Color activeColor;
   final Color iconColor;
   final Color iconActiveColor;
-  final Color inactiveColor;
-  final Color iconInactiveColor;
+  final Color disabledColor;
+  final Color iconDisabledColor;
   final VoidCallback onPressed;
 
   @override
@@ -87,14 +87,14 @@ class _RoundedIconButtonState extends State<RoundedIconButton> with SingleTicker
       child: new Container(
         decoration: new BoxDecoration(
           shape: BoxShape.circle,
-          color: widget.active ? (_tapping ? widget.activeColor : widget.color) : widget.inactiveColor,
+          color: widget.enabled ? (_tapping ? widget.activeColor : widget.color) : widget.disabledColor,
         ),
         child: new Padding(
           padding: new EdgeInsets.all(paddingAnimation.evaluate(animation)),
           child: new Icon(
             widget.icon,
             size: iconSizeAnimation.evaluate(animation),
-            color: widget.active ? (_tapping ? widget.iconActiveColor : widget.iconColor) : widget.iconInactiveColor,
+            color: widget.enabled ? (_tapping ? widget.iconActiveColor : widget.iconColor) : widget.iconDisabledColor,
           ),
         )
       )
@@ -102,7 +102,7 @@ class _RoundedIconButtonState extends State<RoundedIconButton> with SingleTicker
   }
 
   void onTapDownHandler(TapDownDetails details) {
-    if (widget.active) {
+    if (widget.enabled) {
       setState(() => _tapping = true);
       animationController.forward();
     }
@@ -114,14 +114,14 @@ class _RoundedIconButtonState extends State<RoundedIconButton> with SingleTicker
   }
 
   void onTapUpHandler(TapUpDetails details) {
-    if (widget.active) {
+    if (widget.enabled) {
       _tapLeave();
       widget.onPressed();
     }
   }
 
   void onTapCancelHandler() {
-    if (widget.active) {
+    if (widget.enabled) {
       _tapLeave();
     }
   }

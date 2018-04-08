@@ -39,7 +39,7 @@ class _SearchPageState extends State<SearchPage> {
                     activeResizeFactor: 0.9,
                     color: Colors.white,
                     iconColor: Colors.yellow[700],
-                    iconInactiveColor: Colors.black12,
+                    iconDisabledColor: Colors.black12,
                     onPressed: () => print('replay'),
                   )
                 )
@@ -49,14 +49,14 @@ class _SearchPageState extends State<SearchPage> {
                 height: 60.0,
                 child: new Center(
                   child: new RoundedIconButton(
-                    active: false,
+                    enabled: false,
                     icon: Icons.close,
                     iconSize: 30.0,
                     padding: 15.0,
                     activeResizeFactor: 0.8,
                     color: Colors.white,
                     iconColor: Colors.redAccent,
-                    iconInactiveColor: Colors.black12,
+                    iconDisabledColor: Colors.black12,
                     onPressed: () => print('close'),
                   )
                 )
@@ -66,14 +66,14 @@ class _SearchPageState extends State<SearchPage> {
                 height: 60.0,
                 child: new Center(
                   child: new RoundedIconButton(
-                    active: false,
+                    enabled: false,
                     icon: Icons.star,
                     iconSize: 25.0,
                     padding: 10.0,
                     activeResizeFactor: 0.9,
                     color: Colors.white,
                     iconColor: Colors.lightBlue,
-                    iconInactiveColor: Colors.black12,
+                    iconDisabledColor: Colors.black12,
                     onPressed: () => print('star'),
                   )
                 )
@@ -83,14 +83,14 @@ class _SearchPageState extends State<SearchPage> {
                 height: 60.0,
                 child: new Center(
                   child: new RoundedIconButton(
-                    active: false,
+                    enabled: false,
                     icon: Icons.favorite,
                     iconSize: 30.0,
                     padding: 15.0,
                     activeResizeFactor: 0.8,
                     color: Colors.white,
                     iconColor: Colors.greenAccent[400],
-                    iconInactiveColor: Colors.black12,
+                    iconDisabledColor: Colors.black12,
                     onPressed: () => print('favorite'),
                   )
                 )
@@ -106,7 +106,7 @@ class _SearchPageState extends State<SearchPage> {
                     activeResizeFactor: 0.9,
                     color: Colors.white,
                     iconColor: Colors.purple[400],
-                    iconInactiveColor: Colors.black12,
+                    iconDisabledColor: Colors.black12,
                     onPressed: () => print('flash_on'),
                   )
                 )
