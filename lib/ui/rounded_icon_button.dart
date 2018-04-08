@@ -73,6 +73,12 @@ class _RoundedIconButtonState extends State<RoundedIconButton> with SingleTicker
   }
 
   @override
+  void dispose() {
+    animationController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return new GestureDetector(
       onTapDown: onTapDownHandler,
