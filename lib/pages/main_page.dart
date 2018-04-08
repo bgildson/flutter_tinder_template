@@ -5,9 +5,9 @@ import './profile_page.dart';
 import './search_page.dart';
 import './chat_page.dart';
 
-final INDICATORS = [
+final kIndicators = [
   { 'icon': Icons.person },
-  { 'icon': Icons.person_pin_circle },
+  { 'icon': Icons.whatshot },
   { 'icon': Icons.message },
 ];
 
@@ -43,7 +43,7 @@ class _MainPageState extends State<MainPage> {
               width: double.infinity,
               height: 60.0,
               child: new PageIndicator(
-                indicators: INDICATORS,
+                indicators: kIndicators,
                 controller: controller,
               )
             ),
