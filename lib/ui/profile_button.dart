@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 
-import './rounded_icon_button.dart';
+import './rounded_button_icon.dart';
 
 class ProfileButton extends StatelessWidget {
   ProfileButton({
@@ -31,7 +31,7 @@ class ProfileButton extends StatelessWidget {
       children: <Widget>[
         new Padding(
           padding: const EdgeInsets.only(bottom: 10.0),
-          child: RoundedIconButton(
+          child: RoundedButtonIcon(
             icon: icon,
             color: color,
             iconColor: iconColor,

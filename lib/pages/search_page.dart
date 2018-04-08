@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../ui/image_radar.dart';
-import '../ui/rounded_icon_button.dart';
+import '../ui/rounded_button_icon.dart';
 
 class SearchPage extends StatefulWidget {
   @override
@@ -32,7 +32,7 @@ class _SearchPageState extends State<SearchPage> {
                 width: 60.0,
                 height: 60.0,
                 child: new Center(
-                  child: new RoundedIconButton(
+                  child: new RoundedButtonIcon(
                     icon: Icons.replay,
                     iconSize: 25.0,
                     padding: 10.0,
@@ -48,7 +48,7 @@ class _SearchPageState extends State<SearchPage> {
                 width: 60.0,
                 height: 60.0,
                 child: new Center(
-                  child: new RoundedIconButton(
+                  child: new RoundedButtonIcon(
                     enabled: false,
                     icon: Icons.close,
                     iconSize: 30.0,
@@ -65,7 +65,7 @@ class _SearchPageState extends State<SearchPage> {
                 width: 60.0,
                 height: 60.0,
                 child: new Center(
-                  child: new RoundedIconButton(
+                  child: new RoundedButtonIcon(
                     enabled: false,
                     icon: Icons.star,
                     iconSize: 25.0,
@@ -82,7 +82,7 @@ class _SearchPageState extends State<SearchPage> {
                 width: 60.0,
                 height: 60.0,
                 child: new Center(
-                  child: new RoundedIconButton(
+                  child: new RoundedButtonIcon(
                     enabled: false,
                     icon: Icons.favorite,
                     iconSize: 30.0,
@@ -99,7 +99,7 @@ class _SearchPageState extends State<SearchPage> {
                 width: 60.0,
                 height: 60.0,
                 child: new Center(
-                  child: new RoundedIconButton(
+                  child: new RoundedButtonIcon(
                     icon: Icons.flash_on,
                     iconSize: 25.0,
                     padding: 10.0,

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 
-class RoundedIconButton extends StatefulWidget {
-  RoundedIconButton({
+class RoundedButtonIcon extends StatefulWidget {
+  RoundedButtonIcon({
     Key key,
     @required this.icon,
     bool enabled: true,
@@ -37,10 +37,10 @@ class RoundedIconButton extends StatefulWidget {
   final VoidCallback onPressed;
 
   @override
-  _RoundedIconButtonState createState() => new _RoundedIconButtonState();
+  _RoundedButtonIconState createState() => new _RoundedButtonIconState();
 }
 
-class _RoundedIconButtonState extends State<RoundedIconButton> with SingleTickerProviderStateMixin {
+class _RoundedButtonIconState extends State<RoundedButtonIcon> with SingleTickerProviderStateMixin {
   AnimationController animationController;
   Animation<double> animation;
   Tween<double> iconSizeAnimation;
