@@ -1,6 +1,6 @@
 # flutter_tinder_template
 
-A new Flutter project.
+This is an template implementation of the [Tinder App](https://play.google.com/store/apps/details?id=com.tinder) with Flutter.
 
 ## Getting Started
 
