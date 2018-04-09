@@ -103,7 +103,7 @@ class _PageIndicatorState extends State<PageIndicator> {
     if (widget.controller.page.ceil() != pageIndex)
       widget.controller.animateToPage(
         pageIndex,
-        curve: Curves.linear,
+        curve: Curves.easeOut,
         duration: new Duration(milliseconds: 300)
       );
   }
