@@ -45,7 +45,10 @@ class _RoundedButtonIconState extends State<RoundedButtonIcon> with SingleTicker
   Animation<double> animation;
   Tween<double> iconSizeAnimation;
   Tween<double> paddingAnimation;
+  ColorTween colorAnimation;
+  ColorTween iconColorAnimation;
   bool _tapping = false;
+  bool _tappingAnimationCompleted = true;
 
   @override
   void initState() {
@@ -58,8 +61,16 @@ class _RoundedButtonIconState extends State<RoundedButtonIcon> with SingleTicker
 
     animation = new CurvedAnimation(
       parent: animationController,
-      curve: Curves.linear
-    )..addListener(() => setState((){}));
+      curve: Curves.easeOut
+    )
+    ..addListener(() => setState((){}))
+    ..addStatusListener((AnimationStatus status) {
+      if (status == AnimationStatus.completed) {
+        _tappingAnimationCompleted = true;
+        if (!_tapping)
+          animationController.reverse();
+      }
+    });
 
     iconSizeAnimation = new Tween(
       begin: widget.iconSize,
@@ -69,6 +80,16 @@ class _RoundedButtonIconState extends State<RoundedButtonIcon> with SingleTicker
     paddingAnimation = new Tween(
       begin: widget.padding,
       end: widget.padding * widget.activeResizeFactor
+    );
+
+    colorAnimation = new ColorTween(
+      begin: widget.color,
+      end: widget.activeColor
+    );
+
+    iconColorAnimation = new ColorTween(
+      begin: widget.iconColor,
+      end: widget.iconActiveColor
     );
   }
 
@@ -87,14 +108,14 @@ class _RoundedButtonIconState extends State<RoundedButtonIcon> with SingleTicker
       child: new Container(
         decoration: new BoxDecoration(
           shape: BoxShape.circle,
-          color: widget.enabled ? (_tapping ? widget.activeColor : widget.color) : widget.disabledColor,
+          color: widget.enabled ? colorAnimation.evaluate(animation) : widget.disabledColor,
         ),
         child: new Padding(
           padding: new EdgeInsets.all(paddingAnimation.evaluate(animation)),
           child: new Icon(
             widget.icon,
             size: iconSizeAnimation.evaluate(animation),
-            color: widget.enabled ? (_tapping ? widget.iconActiveColor : widget.iconColor) : widget.iconDisabledColor,
+            color: widget.enabled ? iconColorAnimation.evaluate(animation) : widget.iconDisabledColor,
           ),
         )
       )
@@ -105,12 +126,15 @@ class _RoundedButtonIconState extends State<RoundedButtonIcon> with SingleTicker
     if (widget.enabled) {
       setState(() => _tapping = true);
       animationController.forward();
+      _tappingAnimationCompleted = false;
     }
   }
 
   void _tapLeave() {
     setState(() => _tapping = false);
-    animationController.reverse();
+    if (_tappingAnimationCompleted) {
+      animationController.reverse();
+    }
   }
 
   void onTapUpHandler(TapUpDetails details) {
