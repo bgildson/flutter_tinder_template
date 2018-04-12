@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 
+import 'package:flutter_tinder_template/models/models.dart';
+import 'package:flutter_tinder_template/selectors/selectors.dart';
 import '../ui/profile_button.dart';
 import '../ui/profile_card.dart';
 
-class ProfilePage extends StatefulWidget {
-  @override
-  _ProfilePageState createState() => new _ProfilePageState();
-}
-
-class _ProfilePageState extends State<ProfilePage> {
+class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double imageSizes = MediaQuery.of(context).size.width / 3;
@@ -17,25 +15,37 @@ class _ProfilePageState extends State<ProfilePage> {
         new Padding(
           padding: const EdgeInsets.only(top: 30.0),
           child: new Container(
-            child: new DecoratedBox(
-              decoration: new BoxDecoration(
-                shape: BoxShape.circle,
-                image: new DecorationImage(
-                  fit: BoxFit.cover,
-                  image: new NetworkImage('https://picsum.photos/300?image=38'),
-                ),
-              ),
+            child: new StoreConnector<AppState, String>(
+              converter: userSelectedImageUrlSelector,
+              builder: (BuildContext context, String value) {
+                return new DecoratedBox(
+                  decoration: new BoxDecoration(
+                    shape: BoxShape.circle,
+                    image: new DecorationImage(
+                      fit: BoxFit.cover,
+                      image: value == ''
+                        ? new AssetImage('images/empty.jpg')
+                        : new NetworkImage(value),
+                    ),
+                  ),
+                );
+              },
             ),
             height: imageSizes,
             width: imageSizes,
           ),
         ),
         new Padding(
-          child: new Text(
-            'Carol, 26',
-            style: new TextStyle(
-              fontSize: 30.0
-            )
+          child: new StoreConnector<AppState, User>(
+            converter: userSelector,
+            builder: (BuildContext context, vm) {
+              return new Text(
+                '${vm.user.name}, ${vm.user.age}',
+                style: new TextStyle(
+                  fontSize: 30.0
+                )
+              );
+            },
           ),
           padding: const EdgeInsets.symmetric(vertical: 20.0)
         ),
