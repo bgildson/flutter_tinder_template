@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class ChatListItem extends StatefulWidget {
+class ChatListItem extends StatelessWidget {
   ChatListItem({
     Key key,
     this.name,
@@ -10,6 +10,8 @@ class ChatListItem extends StatefulWidget {
     this.onPressed,
   }) : super(key: key);
 
+  final double _imageDiameter = 90.0;
+  final double _defaultPadding = 15.0;
   final String name;
   final String lastMessage;
   final bool lastMessageByMe;
@@ -17,37 +19,29 @@ class ChatListItem extends StatefulWidget {
   final VoidCallback onPressed;
 
   @override
-  _ChatListItemState createState() => new _ChatListItemState();
-}
-
-class _ChatListItemState extends State<ChatListItem> {
-  final double imageSize = 90.0;
-  final double defaultPadding = 15.0;
-
-  @override
   Widget build(BuildContext context) {
     double tileSize = MediaQuery.of(context).size.width;
     return new Material(
       color: Colors.white,
       child: new InkWell(
-        onTap: widget.onPressed,
+        onTap: onPressed,
         child: new Row(
           children: <Widget>[
             new Container(
-              margin: new EdgeInsets.all(defaultPadding),
+              margin: new EdgeInsets.all(_defaultPadding),
               decoration: new BoxDecoration(
                 shape: BoxShape.circle,
                 image: new DecorationImage(
                   fit: BoxFit.cover,
-                  image: new NetworkImage(widget.imageUrl)
+                  image: new NetworkImage(imageUrl)
                 )
               ),
-              height: imageSize,
-              width: imageSize,
+              height: _imageDiameter,
+              width: _imageDiameter,
             ),
             new Container(
-              width: tileSize - imageSize - defaultPadding * 2,
-              height: imageSize + defaultPadding * 2,
+              width: tileSize - _imageDiameter - _defaultPadding * 2,
+              height: _imageDiameter + _defaultPadding * 2,
               child: new DecoratedBox(
                 decoration: new BoxDecoration(
                   border: new Border(
@@ -59,9 +53,9 @@ class _ChatListItemState extends State<ChatListItem> {
                 ),
                 child: new Padding(
                   padding: new EdgeInsets.only(
-                    top: defaultPadding,
-                    right: defaultPadding,
-                    bottom: defaultPadding,
+                    top: _defaultPadding,
+                    right: _defaultPadding,
+                    bottom: _defaultPadding,
                   ),
                   child: new Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -70,7 +64,7 @@ class _ChatListItemState extends State<ChatListItem> {
                       new Padding(
                         padding: const EdgeInsets.only(bottom: 10.0),
                         child: new Text(
-                          widget.name,
+                          name,
                           style: new TextStyle(
                             fontSize: 25.0
                           )
@@ -78,7 +72,7 @@ class _ChatListItemState extends State<ChatListItem> {
                       ),
                       new Row(
                         children: <Widget>[
-                          widget.lastMessageByMe
+                          lastMessageByMe
                             ? new Padding(
                                 padding: const EdgeInsets.only(right: 5.0),
                                 child: new Icon(
@@ -89,9 +83,9 @@ class _ChatListItemState extends State<ChatListItem> {
                             : new Container(),
                           new Expanded(
                             child: new Padding(
-                              padding: new EdgeInsets.only(right: defaultPadding),
+                              padding: new EdgeInsets.only(right: _defaultPadding),
                               child: new Text(
-                                widget.lastMessage,
+                                lastMessage,
                                 style: new TextStyle(
                                   fontSize: 16.0
                                 ),

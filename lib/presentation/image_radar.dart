@@ -1,23 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 
-class ImageRadar extends StatefulWidget {
+class ImageRadar extends StatelessWidget {
   ImageRadar({
     Key key,
-    @required this.height,
-    @required this.width,
     @required this.image,
+    @required this.diameter,
   }) : super(key: key);
 
-  final double height;
-  final double width;
   final ImageProvider image;
+  final double diameter;
 
-  @override
-  _ImageRadarState createState() => new _ImageRadarState();
-}
-
-class _ImageRadarState extends State<ImageRadar> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return new Stack(
@@ -32,18 +25,17 @@ class _ImageRadarState extends State<ImageRadar> with TickerProviderStateMixin {
                 width: 5.0
               ),
               image: new DecorationImage(
-                image: widget.image
+                image: image
               )
             ),
-            height: widget.height,
-            width: widget.width,
+            height: diameter,
+            width: diameter,
           )
         )
       ]
     );
   }
 }
-
 
 class Radar extends StatefulWidget {
   Radar({

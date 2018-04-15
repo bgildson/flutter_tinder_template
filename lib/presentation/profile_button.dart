@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
-
-import './rounded_button_icon.dart';
+import 'rounded_button_icon.dart';
 
 class ProfileButton extends StatelessWidget {
   ProfileButton({

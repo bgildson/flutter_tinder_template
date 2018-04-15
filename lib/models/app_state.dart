@@ -1,32 +1,52 @@
 import 'package:meta/meta.dart';
-
 import 'package:flutter_tinder_template/models/models.dart';
 
 @immutable
 class AppState {
   AppState({
+    this.isLoading: false,
+    this.mainInitialPage,
     User user,
-  }) : this.user = user ?? new User.loading();
+    Matchs matchs,
+  }) : this.user = user ?? new User.loading(),
+       this.matchs = matchs ?? new Matchs.loading();
 
+  final bool isLoading;
+  final int mainInitialPage;
   final User user;
+  final Matchs matchs;
 
-  AppState copyWith({bool isLoading, User user}) {
+  AppState copyWith({
+    bool isLoading,
+    int mainInitialPage,
+    User user,
+    Matchs matchs,
+  }) {
     return new AppState(
+      isLoading: isLoading ?? this.isLoading,
+      mainInitialPage: mainInitialPage ?? this.mainInitialPage,
       user: user ?? this.user,
+      matchs: matchs ?? this.matchs,
     );
   }
 
   @override
-  int get hashCode => user.hashCode;
+  int get hashCode =>
+    isLoading.hashCode ^
+    mainInitialPage.hashCode ^
+    user.hashCode ^
+    matchs.hashCode;
 
   @override
   bool operator ==(dynamic other) =>
     identical(this, other) ||
-    this.runtimeType == other.runtimeType &&
-    user == other.user;
+    runtimeType == other.runtimeType &&
+    isLoading == other.isLoading &&
+    mainInitialPage == other.mainInitialPage &&
+    user == other.user &&
+    matchs == other.matchs;
 
   @override
-  String toString() {
-    return 'AppState{user: $user}';
-  }
+  String toString() =>
+    'AppState{isLoading: $isLoading, mainInitialPage: $mainInitialPage, user: $user, matchs: $matchs}';
 }

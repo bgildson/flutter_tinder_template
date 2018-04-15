@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:redux/redux.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-
 import 'package:flutter_tinder_template/actions/actions.dart';
-import 'package:flutter_tinder_template/models/models.dart';
+import 'package:flutter_tinder_template/containers/main_page.dart';
 import 'package:flutter_tinder_template/middleware/middlewares.dart';
-import 'package:flutter_tinder_template/pages/main_page.dart';
+import 'package:flutter_tinder_template/models/models.dart';
 import 'package:flutter_tinder_template/reducers/app_state_reducer.dart';
 
 class MyApp extends StatelessWidget {

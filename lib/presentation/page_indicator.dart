@@ -9,11 +9,12 @@ final double kIconWidth = 50.0;
 
 class PageIndicator extends StatefulWidget {
   PageIndicator({
+    Key key,
     this.indicators,
     this.controller
-  });
+  }) : super(key: key);
 
-  final List<dynamic> indicators;
+  final List<IconData> indicators;
   final PageController controller;
 
   @override
@@ -22,7 +23,7 @@ class PageIndicator extends StatefulWidget {
 
 class _PageIndicatorState extends State<PageIndicator> {
   _PageIndicatorState() {
-     _updaterCallback = () => setState(() {});
+    _updaterCallback = () => setState(() {});
   }
 
   VoidCallback _updaterCallback;
@@ -81,10 +82,8 @@ class _PageIndicatorState extends State<PageIndicator> {
 
       points.add(
         new IndicatorPoint(
-          viewModel: new IndicatorPointViewModel(
-            icon: widget.indicators[i]['icon'],
-            transitionProgress: transitionProgress
-          ),
+          icon: widget.indicators[i],
+          transitionProgress: transitionProgress,
           onPressed: () => onPointPressed(i),
         )
       );
@@ -112,11 +111,13 @@ class _PageIndicatorState extends State<PageIndicator> {
 class IndicatorPoint extends StatelessWidget {
   IndicatorPoint({
     Key key,
-    this.viewModel,
+    this.icon,
+    this.transitionProgress,
     this.onPressed,
   }) : super(key: key);
 
-  final IndicatorPointViewModel viewModel;
+  final IconData icon;
+  final double transitionProgress;
   final VoidCallback onPressed;
 
   @override
@@ -128,24 +129,12 @@ class IndicatorPoint extends StatelessWidget {
         width: kIconWidth,
         child: new Center(
           child: new Icon(
-            viewModel.icon,
-            color: Color.lerp(Colors.grey, Colors.redAccent, viewModel.transitionProgress),
-            size: lerpDouble(kIconMinSize, kIconMaxSize, viewModel.transitionProgress),
+            icon,
+            color: Color.lerp(Colors.grey, Colors.redAccent, transitionProgress),
+            size: lerpDouble(kIconMinSize, kIconMaxSize, transitionProgress),
           ),
         ),
       ),
     );
   }
-}
-
-class IndicatorPointViewModel {
-  IndicatorPointViewModel({
-    this.icon,
-    this.color,
-    this.transitionProgress
-  });
-
-  IconData icon;
-  Color color;
-  double transitionProgress;
 }

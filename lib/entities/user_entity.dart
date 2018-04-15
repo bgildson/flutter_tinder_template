@@ -68,7 +68,7 @@ class UserEntity {
   @override
   bool operator ==(dynamic other) =>
     identical(this, other) ||
-    this.runtimeType == other.runtimeType &&
+    runtimeType == other.runtimeType &&
     id == other.id &&
     name == other.name &&
     age == other.name &&
