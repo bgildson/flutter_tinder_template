@@ -18,9 +18,9 @@ class SearchPage extends StatelessWidget {
             new Expanded(
               child: new ImageRadar(
                 diameter: imageRadarSize,
-                image: vm.userSelectedImageUrl == ''
+                image: vm.userFirstImageUrl == ''
                   ? new AssetImage('images/empty.jpg')
-                  : new NetworkImage(vm.userSelectedImageUrl)
+                  : new NetworkImage(vm.userFirstImageUrl)
               )
             ),
             new SearchActions(
@@ -39,7 +39,7 @@ class SearchPage extends StatelessWidget {
 
 class ViewModel {
   ViewModel({
-    this.userSelectedImageUrl,
+    this.userFirstImageUrl,
     this.onBackPressed,
     this.onNopePressed,
     this.onSuperLikePressed,
@@ -49,7 +49,7 @@ class ViewModel {
 
   static ViewModel fromStore(Store<AppState> store) {
     return new ViewModel(
-      userSelectedImageUrl: userSelectedImageUrlSelector(store),
+      userFirstImageUrl: userFirstImageUrlSelector(store),
       onBackPressed: () => print('back'),
       onNopePressed: () => print('nope'),
       onSuperLikePressed: () => print('super like'),
@@ -58,7 +58,7 @@ class ViewModel {
     );
   }
 
-  final String userSelectedImageUrl;
+  final String userFirstImageUrl;
   final VoidCallback onBackPressed;
   final VoidCallback onNopePressed;
   final VoidCallback onSuperLikePressed;

@@ -6,20 +6,20 @@ import 'package:flutter_tinder_template/entities/user_entity.dart';
 class User {
   User({
     this.isLoading: false,
-    this.selectedImageUrl: '',
+    this.selectedImageIndex: 0,
     UserEntity user,
   }) : this.user = user ?? new UserEntity();
 
   factory User.loading() => new User(isLoading: true);
 
   final bool isLoading;
-  final String selectedImageUrl;
+  final int selectedImageIndex;
   final UserEntity user;
 
-  User copyWith({UserEntity user, bool isLoading, String selectedImageUrl}) {
+  User copyWith({bool isLoading, int selectedImageUrl, UserEntity user}) {
     return new User(
       isLoading: isLoading ?? this.isLoading,
-      selectedImageUrl: selectedImageUrl ?? this.selectedImageUrl,
+      selectedImageIndex: selectedImageUrl ?? this.selectedImageIndex,
       user: user ?? this.user,
     );
   }
@@ -27,7 +27,7 @@ class User {
   @override
   int get hashCode =>
     isLoading.hashCode ^
-    selectedImageUrl.hashCode ^
+    selectedImageIndex.hashCode ^
     user.hashCode;
 
   @override
@@ -35,11 +35,11 @@ class User {
     identical(this, other) ||
     runtimeType == other.runtimeType &&
     this.isLoading == other.isLoading &&
-    this.selectedImageUrl == other.selectedImageUrl &&
+    this.selectedImageIndex == other.selectedImageIndex &&
     this.user == other.user;
 
   @override
   String toString() {
-    return 'User{isLoading: $isLoading, selectedImage: $selectedImageUrl, user: $user}';
+    return 'User{isLoading: $isLoading, selectedImage: $selectedImageIndex, user: $user}';
   }
 }

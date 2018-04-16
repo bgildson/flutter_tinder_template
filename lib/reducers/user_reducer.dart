@@ -16,6 +16,6 @@ User _loadUserSuccess(User state, LoadUserSuccessAction action) {
   return new User(
     isLoading: false,
     user: action.user,
-    selectedImageUrl: action.user.images[0]
+    selectedImageIndex: 0
   );
 }

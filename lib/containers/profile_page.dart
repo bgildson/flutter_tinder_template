@@ -17,33 +17,34 @@ class ProfilePage extends StatelessWidget {
           children: <Widget>[
             new Padding(
               padding: const EdgeInsets.only(top: 30.0),
-              child: new Container(
-                child: new DecoratedBox(
-                  decoration: new BoxDecoration(
-                    shape: BoxShape.circle,
-                    image: new DecorationImage(
-                      fit: BoxFit.cover,
-                      image: vm.userSelectedImageUrl == ''
-                        ? new AssetImage('images/empty.jpg')
-                        : new NetworkImage(vm.userSelectedImageUrl),
+              child: new Hero(
+                tag: 'user-profile-image-${vm.selectedImageIndex}',
+                child: new Container(
+                  child: new GestureDetector(
+                    onTap: vm.onNavigateToDetails(context),
+                    child: new DecoratedBox(
+                      decoration: new BoxDecoration(
+                        shape: BoxShape.circle,
+                        image: new DecorationImage(
+                          fit: BoxFit.cover,
+                          image: vm.selectedImageUrl == ''
+                            ? new AssetImage('images/empty.jpg')
+                            : new NetworkImage(vm.selectedImageUrl),
+                        ),
+                      ),
                     ),
                   ),
+                  height: imageSizes,
+                  width: imageSizes,
                 ),
-                height: imageSizes,
-                width: imageSizes,
               ),
             ),
             new Padding(
-              child: new StoreConnector<AppState, User>(
-                converter: userSelector,
-                builder: (BuildContext context, vm) {
-                  return new Text(
-                    '${vm.user.name}, ${vm.user.age}',
-                    style: new TextStyle(
-                      fontSize: 30.0
-                    )
-                  );
-                },
+              child: new Text(
+                vm.presentationName,
+                style: new TextStyle(
+                  fontSize: 30.0
+                )
               ),
               padding: const EdgeInsets.symmetric(vertical: 20.0)
             ),
@@ -75,7 +76,7 @@ class ProfilePage extends StatelessWidget {
                         text: 'Edit Info',
                         activeColor: Colors.redAccent,
                         iconActiveColor: Colors.white,
-                        onPressed: () => print('Edit Info')
+                        onPressed: vm.onNavigateToDetails(context)
                       ),
                     ]
                   )
@@ -90,15 +91,23 @@ class ProfilePage extends StatelessWidget {
 }
 
 class ViewModel {
-  ViewModel({
-    this.userSelectedImageUrl,
-  });
+  ViewModel(
+    this.presentationName,
+    this.selectedImageUrl,
+    this.selectedImageIndex,
+  );
 
-  static ViewModel fromStore(Store<AppState> store) {
-    return new ViewModel(
-      userSelectedImageUrl: userSelectedImageUrlSelector(store)
+  static ViewModel fromStore(Store<AppState> store) =>
+    new ViewModel(
+      userPresentationNameSelector(store),
+      userSelectedImageUrlSelector(store),
+      userSelectedImageIndexSelector(store),
     );
-  }
 
-  final String userSelectedImageUrl;
+  final String presentationName;
+  final String selectedImageUrl;
+  final int selectedImageIndex;
+
+  onNavigateToDetails(BuildContext context) =>
+    () => Navigator.pushNamed(context, '/user-profile-details');
 }

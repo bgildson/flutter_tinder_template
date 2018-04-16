@@ -7,8 +7,9 @@ class UserEntity {
     this.name: '',
     this.age: 0,
     this.description: '',
-    List<String> images,
-  }) : this.images = images ?? [];
+    this.images: const [],
+    this.distance: 0,
+  });
 
   factory UserEntity.fromJson(Map<String, dynamic> data) {
     return new UserEntity(
@@ -17,6 +18,7 @@ class UserEntity {
       age: data['age'] as int,
       description: data['description'] as String,
       images: data['images'] as List<String>,
+      distance: data['distance'] as int,
     );
   }
 
@@ -25,6 +27,7 @@ class UserEntity {
   final int age;
   final String description;
   final List<String> images;
+  final int distance;
 
   UserEntity copyWith({
     String id,
@@ -32,6 +35,7 @@ class UserEntity {
     int age,
     String description,
     List<String> images,
+    int distance,
   }) {
     return new UserEntity(
       id: id ?? this.id,
@@ -39,6 +43,7 @@ class UserEntity {
       age: age ?? this.age,
       description: description ?? this.description,
       images: images ?? this.images,
+      distance: distance ?? this.distance,
     );
   }
 
@@ -49,12 +54,13 @@ class UserEntity {
       'age': age,
       'description': description,
       'images': images,
+      'distance': distance,
     };
   }
 
   @override
   String toString() {
-    return 'UserEntity{id: $id, name: $name, age: $age, description: $description}, images: $images';
+    return 'UserEntity{id: $id, name: $name, age: $age, description: $description, images: $images, distance: $distance}';
   }
 
   @override
@@ -63,7 +69,8 @@ class UserEntity {
     name.hashCode ^
     age.hashCode ^
     description.hashCode ^
-    images.hashCode;
+    images.hashCode ^
+    distance.hashCode;
 
   @override
   bool operator ==(dynamic other) =>
@@ -72,6 +79,7 @@ class UserEntity {
     id == other.id &&
     name == other.name &&
     age == other.name &&
-    description == other.description &&
-    images == other.images;
+    description == other.user &&
+    images == other.images &&
+    distance == other.distance;
 }
