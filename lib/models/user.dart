@@ -16,10 +16,10 @@ class User {
   final int selectedImageIndex;
   final UserEntity user;
 
-  User copyWith({bool isLoading, int selectedImageUrl, UserEntity user}) {
+  User copyWith({bool isLoading, int selectedImageIndex, UserEntity user}) {
     return new User(
       isLoading: isLoading ?? this.isLoading,
-      selectedImageIndex: selectedImageUrl ?? this.selectedImageIndex,
+      selectedImageIndex: selectedImageIndex ?? this.selectedImageIndex,
       user: user ?? this.user,
     );
   }

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:redux/redux.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:flutter_tinder_template/actions/actions.dart';
 import 'package:flutter_tinder_template/entities/entities.dart';
 import 'package:flutter_tinder_template/models/models.dart';
+import 'package:flutter_tinder_template/presentation/image_carousel.dart';
 import 'package:flutter_tinder_template/presentation/rounded_button_icon.dart';
 import 'package:flutter_tinder_template/selectors/selectors.dart';
 import 'package:flutter_tinder_template/utils/formatters.dart';
@@ -25,35 +27,11 @@ class ProfileDetailsPage extends StatelessWidget {
                       new Column(
                         mainAxisSize: MainAxisSize.min,
                         children: <Widget>[
-                          new Container(
-                            height: MediaQuery.of(context).size.width,
-                            child: new PageView.builder(
-                              itemCount: vm.user.images.length,
-                              controller: new PageController(initialPage: vm.selectedImageIndex),
-                              itemBuilder: (context, index) {
-                                return new Hero(
-                                  tag: 'user-profile-image-$index',
-                                  child: new Stack(
-                                    children: <Widget>[
-                                      new PageView(
-                                        children: <Widget>[
-                                          new Container(
-                                            child: new Image.network(
-                                              vm.user.images[index],
-                                              fit: BoxFit.cover,
-                                            ),
-                                            decoration: new BoxDecoration(
-                                              color: Colors.red
-                                            ),
-                                            width: double.infinity,
-                                          ),
-                                        ],
-                                      )
-                                    ]
-                                  )
-                                );
-                              },
-                            ),
+                          new ImageCarousel(
+                            images: vm.user.images,
+                            currentImageIndex: vm.selectedImageIndex,
+                            tagBase: 'user-profile-image-',
+                            onCurrentImageIndexChanged: vm.onCurrentImageIndexChanged,
                           ),
                           new Container(
                             padding: new EdgeInsets.all(20.0),
@@ -147,25 +125,29 @@ class ProfileDetailsPage extends StatelessWidget {
 }
 
 class ViewModel {
-  ViewModel(
+  ViewModel({
     this.presentationName,
     this.selectedImageUrl,
     this.selectedImageIndex,
     this.user,
-  );
+    this.onCurrentImageIndexChanged,
+  });
 
   static ViewModel fromStore(Store<AppState> store) =>
     new ViewModel(
-      userPresentationNameSelector(store),
-      userSelectedImageUrlSelector(store),
-      userSelectedImageIndexSelector(store),
-      userSelector(store).user
+      presentationName: userPresentationNameSelector(store),
+      selectedImageUrl: userSelectedImageUrlSelector(store),
+      selectedImageIndex: userSelectedImageIndexSelector(store),
+      user: userSelector(store).user,
+      onCurrentImageIndexChanged: (int imageIndex) =>
+        store.dispatch(new ChangeSelectedImageIndexAction(imageIndex)),
     );
 
   final String presentationName;
   final String selectedImageUrl;
   final int selectedImageIndex;
   final UserEntity user;
+  final Function onCurrentImageIndexChanged;
 
   Function onNavigateBack(BuildContext context) =>
     () => Navigator.of(context).pop();
