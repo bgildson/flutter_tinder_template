@@ -51,32 +51,46 @@ class _ImageCarouselState extends State<ImageCarousel> {
 
   @override
   Widget build(BuildContext context) {
-    return new Container(
-      height: MediaQuery.of(context).size.width,
-      child: new PageView.builder(
-        controller: _controller,
-        itemCount: widget.images.length,
-        itemBuilder: (context, index) {
-          return new Hero(
-            tag: '${widget.tagBase}$index',
-            child: new Stack(
-              children: <Widget>[
-                new PageView(
-                  children: <Widget>[
-                    new Container(
-                      child: new Image.network(
-                        widget.images[index],
-                        fit: BoxFit.cover,
+    double halfScreenSize = MediaQuery.of(context).size.width / 2;
+    return new GestureDetector(
+      onTapUp: (TapUpDetails details) => onTapUp(halfScreenSize, details),
+      child: new Container(
+        height: MediaQuery.of(context).size.width,
+        child: new PageView.builder(
+          controller: _controller,
+          itemCount: widget.images.length,
+          itemBuilder: (context, index) {
+            return new Hero(
+              tag: '${widget.tagBase}$index',
+              child: new Stack(
+                children: <Widget>[
+                  new PageView(
+                    children: <Widget>[
+                      new Container(
+                        child: new Image.network(
+                          widget.images[index],
+                          fit: BoxFit.cover,
+                        ),
+                        width: double.infinity,
                       ),
-                      width: double.infinity,
-                    ),
-                  ],
-                )
-              ]
-            )
-          );
-        },
+                    ],
+                  )
+                ]
+              )
+            );
+          },
+        )
       )
     );
+  }
+
+  void onTapUp(double halfScreenSize, TapUpDetails details) {
+    if (halfScreenSize > details.globalPosition.dx) {
+      if (widget.currentImageIndex > 0)
+        _controller.jumpToPage(widget.currentImageIndex - 1);
+    } else {
+      if (widget.currentImageIndex < widget.images.length - 1)
+        _controller.jumpToPage(widget.currentImageIndex + 1);
+    }
   }
 }
