@@ -5,6 +5,7 @@ import 'package:flutter_tinder_template/actions/actions.dart';
 import 'package:flutter_tinder_template/entities/entities.dart';
 import 'package:flutter_tinder_template/models/models.dart';
 import 'package:flutter_tinder_template/presentation/image_carousel.dart';
+import 'package:flutter_tinder_template/presentation/my_music_tile.dart';
 import 'package:flutter_tinder_template/presentation/rounded_button_icon.dart';
 import 'package:flutter_tinder_template/selectors/selectors.dart';
 import 'package:flutter_tinder_template/utils/formatters.dart';
@@ -20,7 +21,7 @@ class ProfileDetailsPage extends StatelessWidget {
           body: new Stack(
             children: <Widget>[
               new ListView(
-                padding: new EdgeInsets.all(0.0),
+                padding: new EdgeInsets.only(top: 0.0, bottom: 100.0),
                 children: <Widget>[
                   new Stack(
                     children: <Widget>[
@@ -106,20 +107,79 @@ class ProfileDetailsPage extends StatelessWidget {
                   ),
                   new Container(
                     padding: new EdgeInsets.all(20.0),
-                    child: new Text(
-                      'My Music',
-                      style: new TextStyle(
-                        fontSize: 20.0,
-                        fontWeight: FontWeight.bold
-                      ),
+                    child: new Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        new Text(
+                          'My Music',
+                          style: new TextStyle(
+                            fontSize: 20.0,
+                            fontWeight: FontWeight.bold
+                          ),
+                        ),
+                        new Padding(
+                          padding: new EdgeInsets.symmetric(vertical: 10.0),
+                          child: new MyMusicTile(
+                            music: 'Rap God',
+                            artist: 'Eminem',
+                            imageUrl: 'https://assets.audiomack.com/mc-hone/rap-god-eminem-275-275-1522798584.jpg',
+                          )
+                        )
+                      ],
                     )
                   ),
                 ],
-              )
+              ),
+              _buildOverlayEditInfoButton(context)
             ]
           ),
         );
       }
+    );
+  }
+
+  Widget _buildOverlayEditInfoButton(BuildContext context) {
+    return new Container(
+      alignment: Alignment.bottomCenter,
+      margin: new EdgeInsets.only(top: MediaQuery.of(context).size.height - 100),
+      decoration: new BoxDecoration(
+        gradient: new LinearGradient(
+          begin: new FractionalOffset(0.5, 0.0),
+          end: new FractionalOffset(0.5, 1.0),
+          colors: <Color>[
+            Colors.white.withOpacity(0.0),
+            Colors.white
+          ]
+        )
+      ),
+      height: 100.0,
+      width: double.infinity,
+      child: new GestureDetector(
+        onTap: () => print('edit info'),
+        child: new Container(
+          margin: new EdgeInsets.all(15.0),
+          padding: new EdgeInsets.symmetric(horizontal: 25.0, vertical: 15.0),
+          decoration: new BoxDecoration(
+            borderRadius: new BorderRadius.circular(200.0),
+            boxShadow: <BoxShadow>[
+              new BoxShadow(
+                color: Colors.black38,
+                blurRadius: 1.0,
+                spreadRadius: 0.0,
+                offset: new Offset(0.5, 2.0)
+              )
+            ],
+            color: Colors.white
+          ),
+          child: new Text(
+            'EDIT INFO',
+            style: new TextStyle(
+              color: Colors.red,
+              fontSize: 24.0
+            ),
+          ),
+        ),
+      )
     );
   }
 }
