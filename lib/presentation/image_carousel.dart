@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_tinder_template/presentation/current_image_indicator.dart';
 
 class ImageCarousel extends StatefulWidget {
   ImageCarousel({
@@ -51,36 +52,35 @@ class _ImageCarouselState extends State<ImageCarousel> {
 
   @override
   Widget build(BuildContext context) {
-    double halfScreenSize = MediaQuery.of(context).size.width / 2;
+    double screenSize = MediaQuery.of(context).size.width;
     return new GestureDetector(
-      onTapUp: (TapUpDetails details) => onTapUp(halfScreenSize, details),
+      onTapUp: (TapUpDetails details) => onTapUp(screenSize / 2, details),
       child: new Container(
-        height: MediaQuery.of(context).size.width,
-        child: new PageView.builder(
-          controller: _controller,
-          itemCount: widget.images.length,
-          itemBuilder: (context, index) {
-            return new Hero(
-              tag: '${widget.tagBase}$index',
-              child: new Stack(
-                children: <Widget>[
-                  new PageView(
-                    children: <Widget>[
-                      new Container(
-                        child: new Image.network(
-                          widget.images[index],
-                          fit: BoxFit.cover,
-                        ),
-                        width: double.infinity,
-                      ),
-                    ],
-                  )
-                ]
+        height: screenSize,
+        child: new Hero(
+          tag: '${widget.tagBase}${widget.currentImageIndex}',
+          child: new Stack(
+            children: <Widget>[
+              PageView(
+                controller: _controller,
+                children: widget.images.map((image) {
+                  return new Container(
+                    child: new Image.network(
+                      image,
+                      fit: BoxFit.cover,
+                    ),
+                    width: double.infinity,
+                  );
+                }).toList()
+              ),
+              new CurrentImageIndicator(
+                size: widget.images.length,
+                activeIndex: widget.currentImageIndex,
               )
-            );
-          },
-        )
-      )
+            ]
+          ),
+        ),
+      ),
     );
   }
 
