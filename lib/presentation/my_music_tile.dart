@@ -14,8 +14,8 @@ class MyMusicTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double imageSize = MediaQuery.of(context).size.width / 5;
     return new Container(
-      // color: Colors.green,
       child: new Row(
         children: <Widget>[
           new Expanded(
@@ -54,14 +54,28 @@ class MyMusicTile extends StatelessWidget {
             ),
           ),
           new Container(
-            height: MediaQuery.of(context).size.width / 5,
-            width: MediaQuery.of(context).size.width / 5,
+            height: imageSize,
+            width: imageSize,
             decoration: new BoxDecoration(
               borderRadius: new BorderRadius.all(new Radius.circular(10.0)),
               image: new DecorationImage(
                 image: new NetworkImage(imageUrl)
               )
             ),
+            child: new Center(
+              child: new Container(
+                padding: new EdgeInsets.all(3.0),
+                decoration: new BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.white.withOpacity(0.8)
+                ),
+                child: new Icon(
+                  Icons.play_arrow,
+                  color: Colors.redAccent,
+                  size: imageSize / 4,
+                ),
+              ),
+            )
           )
         ],
       ),

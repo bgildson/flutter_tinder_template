@@ -118,7 +118,7 @@ class ProfileDetailsPage extends StatelessWidget {
                           ),
                         ),
                         new Padding(
-                          padding: new EdgeInsets.symmetric(vertical: 10.0),
+                          padding: new EdgeInsets.symmetric(vertical: 20.0),
                           child: new MyMusicTile(
                             music: 'Rap God',
                             artist: 'Eminem',
