@@ -45,7 +45,6 @@ class SearchActions extends StatelessWidget {
             height: 60.0,
             child: new Center(
               child: new RoundedButtonIcon(
-                enabled: false,
                 icon: Icons.close,
                 iconSize: 30.0,
                 padding: 15.0,
@@ -62,7 +61,6 @@ class SearchActions extends StatelessWidget {
             height: 60.0,
             child: new Center(
               child: new RoundedButtonIcon(
-                enabled: false,
                 icon: Icons.star,
                 iconSize: 25.0,
                 padding: 10.0,
@@ -79,7 +77,6 @@ class SearchActions extends StatelessWidget {
             height: 60.0,
             child: new Center(
               child: new RoundedButtonIcon(
-                enabled: false,
                 icon: Icons.favorite,
                 iconSize: 30.0,
                 padding: 15.0,

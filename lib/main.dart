@@ -7,12 +7,15 @@ import 'package:flutter_tinder_template/containers/profile_details_page.dart';
 import 'package:flutter_tinder_template/middleware/middlewares.dart';
 import 'package:flutter_tinder_template/models/models.dart';
 import 'package:flutter_tinder_template/reducers/app_state_reducer.dart';
+import 'package:flutter_tinder_template/utils/redux_logging.dart';
 
 class MyApp extends StatelessWidget {
   final store = new Store<AppState>(
     appReducer,
-    initialState: new AppState(),
+    distinct: true,
+    initialState: new AppState.loading(),
     middleware: createAllMiddlewares()
+      ..addAll(createLoggingMiddlewares())
   );
 
   @override
@@ -25,7 +28,7 @@ class MyApp extends StatelessWidget {
           '/': (context) {
             return new StoreBuilder<AppState>(
               onInit: (store) {
-                store.dispatch(new LoadUserAction());
+                store.dispatch(new LoadAppAction());
               },
               builder: (context, store) {
                 return new MainPage();

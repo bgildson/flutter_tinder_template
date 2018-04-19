@@ -27,14 +27,10 @@ class CurrentImageIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    EdgeInsets padding = MediaQuery.of(context).padding;
-    return new Container(
-      padding: new EdgeInsets.only(left: 10.0, top: padding.top + 5, right: 10.0),
-      child: new Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: new List.generate(size, (index) => 
-          _buildIndicator(index == activeIndex))
-      ),
+    return new Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: new List.generate(size, (index) => 
+        _buildIndicator(index == activeIndex))
     );
   }
 }

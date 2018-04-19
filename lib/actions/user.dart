@@ -8,7 +8,8 @@ class LoadUserSuccessAction {
   final UserEntity user;
 
   @override
-  String toString() => 'LoadUserSuccessAction{user: $user}';
+  String toString() =>
+    'LoadUserSuccessAction{user: $user}';
 }
 
 class LoadUserFailAction {
@@ -17,11 +18,16 @@ class LoadUserFailAction {
   final String message;
 
   @override
-  String toString() => 'LoadUserFailAction{message: $message}';
+  String toString() =>
+    'LoadUserFailAction{message: $message}';
 }
 
 class ChangeSelectedImageIndexAction {
   ChangeSelectedImageIndexAction(this.selectedImageIndex);
 
   final int selectedImageIndex;
+
+  @override
+  String toString() =>
+    'ChangeSelectedImageIndexAction{selectedImageIndex: $selectedImageIndex}';
 }

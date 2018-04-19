@@ -32,12 +32,6 @@ class _ImageCarouselState extends State<ImageCarousel> {
 
   final PageController _controller;
 
-  void _currentImageChanged() {
-    int currentImageIndex = _controller.page.round();
-    if (widget.currentImageIndex != currentImageIndex)
-      widget.onCurrentImageIndexChanged(currentImageIndex);
-  }
-
   @override
   void initState() {
     super.initState();
@@ -47,6 +41,7 @@ class _ImageCarouselState extends State<ImageCarousel> {
   @override
   void dispose() {
     _controller.removeListener(_currentImageChanged);
+    _controller.dispose();
     super.dispose();
   }
 
@@ -73,15 +68,28 @@ class _ImageCarouselState extends State<ImageCarousel> {
                   );
                 }).toList()
               ),
-              new CurrentImageIndicator(
-                size: widget.images.length,
-                activeIndex: widget.currentImageIndex,
+              new Padding(
+                padding: new EdgeInsets.only(
+                  left: 10.0,
+                  top: MediaQuery.of(context).padding.top + 5,
+                  right: 10.0
+                ),
+                child: new CurrentImageIndicator(
+                  size: widget.images.length,
+                  activeIndex: widget.currentImageIndex,
+                )
               )
             ]
           ),
         ),
       ),
     );
+  }
+
+  void _currentImageChanged() {
+    int currentImageIndex = _controller.page.round();
+    if (widget.currentImageIndex != currentImageIndex)
+      widget.onCurrentImageIndexChanged(currentImageIndex);
   }
 
   void onTapUp(double halfScreenSize, TapUpDetails details) {

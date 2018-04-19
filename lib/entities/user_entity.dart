@@ -1,5 +1,10 @@
 import 'package:meta/meta.dart';
 
+enum Gender {
+  male,
+  female,
+}
+
 @immutable
 class UserEntity {
   UserEntity({
@@ -7,16 +12,26 @@ class UserEntity {
     this.name: '',
     this.age: 0,
     this.description: '',
+    this.gender: Gender.male,
     this.images: const [],
     this.distance: 0,
   });
 
   factory UserEntity.fromJson(Map<String, dynamic> data) {
+    Gender gender;
+
+    if (data['gender'].toString().toLowerCase() == 'male') {
+      gender = Gender.male;
+    } else {
+      gender = Gender.female;
+    }
+
     return new UserEntity(
       id: data['id'] as String,
       name: data['name'] as String,
       age: data['age'] as int,
       description: data['description'] as String,
+      gender: gender,
       images: data['images'] as List<String>,
       distance: data['distance'] as int,
     );
@@ -26,6 +41,7 @@ class UserEntity {
   final String name;
   final int age;
   final String description;
+  final Gender gender;
   final List<String> images;
   final int distance;
 
@@ -34,6 +50,7 @@ class UserEntity {
     String name,
     int age,
     String description,
+    Gender gender,
     List<String> images,
     int distance,
   }) {
@@ -42,6 +59,7 @@ class UserEntity {
       name: name ?? this.name,
       age: age ?? this.age,
       description: description ?? this.description,
+      gender: gender ?? this.gender,
       images: images ?? this.images,
       distance: distance ?? this.distance,
     );
@@ -53,6 +71,7 @@ class UserEntity {
       'name': name,
       'age': age,
       'description': description,
+      'gender': gender,
       'images': images,
       'distance': distance,
     };
@@ -60,7 +79,7 @@ class UserEntity {
 
   @override
   String toString() {
-    return 'UserEntity{id: $id, name: $name, age: $age, description: $description, images: $images, distance: $distance}';
+    return 'UserEntity{id: $id, name: $name, age: $age, description: $description, gender: $gender, images: $images, distance: $distance}';
   }
 
   @override
@@ -69,6 +88,7 @@ class UserEntity {
     name.hashCode ^
     age.hashCode ^
     description.hashCode ^
+    gender.hashCode ^
     images.hashCode ^
     distance.hashCode;
 
@@ -80,6 +100,7 @@ class UserEntity {
     name == other.name &&
     age == other.name &&
     description == other.user &&
+    gender == other.gender &&
     images == other.images &&
     distance == other.distance;
 }

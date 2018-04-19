@@ -10,6 +10,7 @@ List<Middleware<AppState>> createAllMiddlewares() {
     TypedMiddleware<AppState, LoadAppAction>(_initalizeApp),
     TypedMiddleware<AppState, LoadUserAction>(_loadCurrentUser),
     TypedMiddleware<AppState, LoadMatchsAction>(_loadMatchs),
+    TypedMiddleware<AppState, LoadStrangersAction>(_loadStrangers),
   ];
 }
 
@@ -23,9 +24,10 @@ void _loadCurrentUser(Store<AppState> store, action, NextDispatcher next) {
 
   UsersService
     .loadCurrentUser()
-    .then((UserEntity user) {
-      store.dispatch(new LoadUserSuccessAction(user));
+    .then((UserEntity data) {
       store.dispatch(new LoadMatchsAction());
+      store.dispatch(new LoadStrangersAction());
+      store.dispatch(new LoadUserSuccessAction(data));
     })
     .catchError((String message) =>
       store.dispatch(new LoadUserFailAction(message)));
@@ -36,8 +38,19 @@ void _loadMatchs(Store<AppState> store, action, NextDispatcher next) {
 
   UsersService
     .loadMatchs()
-    .then((List<UserEntity> matchs) =>
-      store.dispatch(new LoadMatchsSuccessAction(matchs)))
+    .then((List<UserEntity> data) =>
+      store.dispatch(new LoadMatchsSuccessAction(data)))
     .catchError((String message) =>
       store.dispatch(new LoadMatchsFailAction(message)));
+}
+
+void _loadStrangers(Store<AppState> store, action, NextDispatcher next) {
+  next(action);
+
+  UsersService
+    .loadStrangers()
+    .then((List<UserEntity> data) =>
+      store.dispatch(new LoadStrangersSuccessAction(data)))
+    .catchError((String message) =>
+      store.dispatch(new LoadStrangersFailAction(message)));
 }
