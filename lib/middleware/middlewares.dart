@@ -19,38 +19,40 @@ void _initalizeApp(Store<AppState> store, action, NextDispatcher next) {
   next(new LoadUserAction());
 }
 
-void _loadCurrentUser(Store<AppState> store, action, NextDispatcher next) {
+void _loadCurrentUser(Store<AppState> store, action, NextDispatcher next) async {
   next(action);
 
-  UsersService
-    .loadCurrentUser()
-    .then((UserEntity data) {
-      store.dispatch(new LoadMatchsAction());
-      store.dispatch(new LoadStrangersAction());
-      store.dispatch(new LoadUserSuccessAction(data));
-    })
-    .catchError((String message) =>
-      store.dispatch(new LoadUserFailAction(message)));
+  try {
+    UserEntity user =  await UsersService.loadCurrentUser();
+
+    store.dispatch(new LoadMatchsAction());
+    store.dispatch(new LoadStrangersAction());
+    store.dispatch(new LoadUserSuccessAction(user));
+  } catch (error) {
+    store.dispatch(new LoadUserFailAction(error.message));
+  }
 }
 
-void _loadMatchs(Store<AppState> store, action, NextDispatcher next) {
+void _loadMatchs(Store<AppState> store, action, NextDispatcher next) async {
   next(action);
 
-  UsersService
-    .loadMatchs()
-    .then((List<UserEntity> data) =>
-      store.dispatch(new LoadMatchsSuccessAction(data)))
-    .catchError((String message) =>
-      store.dispatch(new LoadMatchsFailAction(message)));
+  try {
+    List<UserEntity> users = await UsersService.loadMatchs();
+
+    store.dispatch(new LoadMatchsSuccessAction(users));
+  } catch (error) {
+    store.dispatch(new LoadMatchsFailAction(error.message));
+  }
 }
 
-void _loadStrangers(Store<AppState> store, action, NextDispatcher next) {
+void _loadStrangers(Store<AppState> store, action, NextDispatcher next) async {
   next(action);
 
-  UsersService
-    .loadStrangers()
-    .then((List<UserEntity> data) =>
-      store.dispatch(new LoadStrangersSuccessAction(data)))
-    .catchError((String message) =>
-      store.dispatch(new LoadStrangersFailAction(message)));
+  try {
+    List<UserEntity> users = await UsersService.loadStrangers();
+
+    store.dispatch(new LoadStrangersSuccessAction(users));
+  } catch (error) {
+    store.dispatch(new LoadStrangersFailAction(error.message));
+  }
 }
