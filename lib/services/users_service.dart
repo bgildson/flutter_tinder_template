@@ -51,7 +51,7 @@ class UsersService {
 
     List<UserEntity> _users = [];
     for (var userData in usersData) {
-      String dob = userData['dob'];
+      String dob = userData['dob']['date'];
       int age = (new DateTime.now().difference(DateTime.parse(dob)).inDays / 365).floor();
 
       Gender _gender;
